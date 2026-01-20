@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ZapFit iOS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <header class="glass-panel">
+            <div class="date-display">
+                <span id="currentDate">21 Января</span>
+                <span id="currentDay">Среда</span>
+            </div>
+            <div class="streak-badge">
+                <span class="material-icons-round">local_fire_department</span>
+                <span id="streakCount">0 дней</span>
+            </div>
+        </header>
+
+        <section class="progress-section">
+            <div class="glass-card progress-card">
+                <div class="progress-ring-container">
+                    <svg class="progress-ring" width="120" height="120">
+                        <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.1)" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                        <circle class="progress-ring__circle" stroke="#00d4ff" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                    </svg>
+                    <div class="progress-text">
+                        <span id="progressPercent">0%</span>
+                    </div>
+                </div>
+                <div class="progress-info">
+                    <h3>Твой прогресс</h3>
+                    <p id="motivationText">Начни день правильно!</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="tabs glass-panel">
+            <button class="tab-btn active" onclick="switchTab('today')">Сегодня</button>
+            <button class="tab-btn" onclick="switchTab('stats')">Статистика</button>
+        </div>
+
+        <main id="mainContent">
+            <div id="tasksList" class="tasks-container"></div>
+        </main>
+
+        <div id="statsView" class="stats-container hidden">
+            <div class="glass-card">
+                <h3>Статистика месяца</h3>
+                <div class="stat-row">
+                    <span>Выполнено задач:</span>
+                    <span id="totalTasksDone" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Тренировок пройдено:</span>
+                    <span id="workoutsDone" class="stat-value">0</span>
+                </div>
+                <div class="stat-chart">
+                    <div class="chart-bar" style="height: 40%"></div>
+                    <div class="chart-bar" style="height: 60%"></div>
+                    <div class="chart-bar active" style="height: 80%"></div>
+                    <div class="chart-bar" style="height: 50%"></div>
+                    <div class="chart-bar" style="height: 70%"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
