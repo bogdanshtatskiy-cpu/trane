@@ -13,10 +13,10 @@ const WORKOUT_A_DATA = {
     desc: "Грудь, Плечи, Трицепс. Жми для старта.",
     routine: [
         {
-            name: "0. Прими BCAA",
-            reps: "3-5 капсул",
+            name: "0. OstroVit BCAA",
+            reps: "5 капсул",
             sets: 1,
-            note: "Запей водой за 10-15 мин до начала. Это защита мышц.",
+            note: "Запей стаканом воды за 15-20 мин до начала.",
             rest: "Готовность"
         },
         {
@@ -62,10 +62,10 @@ const WORKOUT_B_DATA = {
     desc: "Спина, Ноги, Бицепс. Жми для старта.",
     routine: [
         {
-            name: "0. Прими BCAA",
-            reps: "3-5 капсул",
+            name: "0. OstroVit BCAA",
+            reps: "5 капсул",
             sets: 1,
-            note: "Запей водой. Чтобы мышцы не горели.",
+            note: "Запей водой. Защита мышц от разрушения.",
             rest: "Готовность"
         },
         {
@@ -111,10 +111,10 @@ const CARDIO_DATA = {
     desc: "Жиросжигание. BCAA перед стартом!",
     routine: [
         {
-            name: "0. Прими BCAA",
-            reps: "3-5 капсул",
+            name: "0. OstroVit BCAA",
+            reps: "5 капсул",
             sets: 1,
-            note: "Можно выпить и во время кручения педалей.",
+            note: "Выпей перед тем, как сесть на велик.",
             rest: "-"
         },
         {
@@ -404,7 +404,7 @@ function renderTasksForViewingDate() {
         taskCard.className = `glass-card task-card ${isDone ? 'completed' : ''}`;
         if (task.isWorkout) taskCard.classList.add('is-workout');
         
-        // Подсветка для Протеина (чтобы не пропустить)
+        // Подсветка для Протеина
         if (task.title.includes('ПРОТЕИН')) taskCard.style.border = "1px solid rgba(255, 215, 0, 0.3)";
 
         if (isViewingToday) {
