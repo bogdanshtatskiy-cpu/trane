@@ -56,32 +56,47 @@
         <div style="height: 80px;"></div>
     </div>
 
+    <div id="modalWorkout" class="modal-overlay hidden">
+        <div class="modal-content glass-panel" style="height: 92vh;"> <div class="modal-header">
+                <h2 id="workoutModalTitle">Тренировка</h2>
+                <button class="close-btn" onclick="closeModal('modalWorkout')">
+                    <span class="material-icons-round">expand_more</span>
+                </button>
+            </div>
+            <div class="modal-scroll-area" id="workoutContent">
+                </div>
+            <div class="modal-footer glass-panel">
+                <button class="action-btn" onclick="finishCurrentWorkout()">
+                    ЗАВЕРШИТЬ ТРЕНИРОВКУ
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="modalInfo" class="modal-overlay hidden">
         <div class="modal-content glass-panel">
             <div class="modal-header">
-                <h2>Техника упражнений</h2>
+                <h2>Техника</h2>
                 <button class="close-btn" onclick="closeModal('modalInfo')">
                     <span class="material-icons-round">close</span>
                 </button>
             </div>
-            <div class="modal-scroll-area" id="infoContent">
-                </div>
+            <div class="modal-scroll-area" id="infoContent"></div>
         </div>
     </div>
 
     <div id="modalStats" class="modal-overlay hidden">
         <div class="modal-content glass-panel">
             <div class="modal-header">
-                <h2>Твой прогресс</h2>
+                <h2>Прогресс</h2>
                 <button class="close-btn" onclick="closeModal('modalStats')">
                     <span class="material-icons-round">close</span>
                 </button>
             </div>
             <div class="modal-scroll-area">
-                
                 <div class="stats-grid">
                     <div class="stat-box">
-                        <span class="stat-label">Всего задач</span>
+                        <span class="stat-label">Задач</span>
                         <span class="stat-num" id="statTotalDone">0</span>
                     </div>
                     <div class="stat-box">
@@ -89,15 +104,8 @@
                         <span class="stat-num" id="statWorkoutsDone">0</span>
                     </div>
                 </div>
-
                 <h3 class="stat-subtitle">По неделям</h3>
-                <div id="weeklyChart" class="charts-container">
-                    </div>
-
-                <div class="glass-card tip-card">
-                    <span class="material-icons-round" style="color: var(--accent)">insights</span>
-                    <p>Держи темп! Стабильность важнее весов.</p>
-                </div>
+                <div id="weeklyChart" class="charts-container"></div>
             </div>
         </div>
     </div>
