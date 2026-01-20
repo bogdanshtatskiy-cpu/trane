@@ -7,112 +7,115 @@ const START_DATE_OBJ = new Date(SCHEDULE_START_STR); START_DATE_OBJ.setHours(0,0
 const END_DATE_OBJ = new Date(SCHEDULE_END_STR); END_DATE_OBJ.setHours(23,59,59,999);
 const TRAINING_START_OBJ = new Date(TRAINING_START_STR); TRAINING_START_OBJ.setHours(0,0,0,0);
 
-// --- БАЗА ЗНАНИЙ УПРАЖНЕНИЙ (ОБНОВЛЕНА) ---
+// --- ДЕТАЛЬНЫЕ ПРОГРАММЫ ТРЕНИРОВОК ---
+const WORKOUT_A_DATA = {
+    title: "🔥 Тренировка А (Верх)",
+    desc: "Грудь, Плечи, Трицепс. Нажми, чтобы начать.",
+    routine: [
+        {
+            name: "1. Отжимания (Медленные)",
+            reps: "МАКСИМУМ",
+            sets: 4,
+            note: "2 сек вниз, 1 сек вверх. Спина прямая!",
+            rest: "90 сек"
+        },
+        {
+            name: "2. Жим гантелей лежа на полу",
+            reps: "15-20 раз",
+            sets: 4,
+            note: "Локти касаются пола и сразу вверх. Не расслабляйся внизу.",
+            rest: "60 сек"
+        },
+        {
+            name: "3. Махи гантелями в стороны",
+            reps: "15-20 раз",
+            sets: 4,
+            note: "Локти чуть согнуты. Плечи не задирай к ушам.",
+            rest: "60 сек"
+        },
+        {
+            name: "4. Разгибание на трицепс",
+            reps: "15 раз",
+            sets: 3,
+            note: "Одна гантель двумя руками из-за головы. Локти прижми.",
+            rest: "45 сек"
+        },
+        {
+            name: "5. Планка",
+            reps: "30-45 сек",
+            sets: 3,
+            note: "Держись до трясучки. Не провисай в поясе!",
+            rest: "30 сек"
+        }
+    ]
+};
+
+const WORKOUT_B_DATA = {
+    title: "💪 Тренировка Б (База)",
+    desc: "Спина, Ноги, Бицепс. Нажми, чтобы начать.",
+    routine: [
+        {
+            name: "1. Приседания",
+            reps: "20 раз",
+            sets: 4,
+            note: "Пятки не отрывай. Спина прямая.",
+            rest: "60-90 сек"
+        },
+        {
+            name: "2. Тяга гантели (с упором)",
+            reps: "15-20 на руку",
+            sets: 4,
+            note: "Сделай правой, отдохни 30 сек, сделай левой. Тяни к карману!",
+            rest: "Между руками 30 сек"
+        },
+        {
+            name: "3. Бицепс стоя (Гантели)",
+            reps: "15-20 раз",
+            sets: 4,
+            note: "Локти прижми к корпусу. Без рывков.",
+            rest: "60 сек"
+        },
+        {
+            name: "4. Молотки (на предплечья)",
+            reps: "15 раз",
+            sets: 3,
+            note: "Ладони смотрят друг на друга.",
+            rest: "45 сек"
+        },
+        {
+            name: "5. Лодочка (на полу)",
+            reps: "15 раз (держать 2 сек)",
+            sets: 3,
+            note: "Поднимай руки и ноги одновременно. Пауза наверху.",
+            rest: "45 сек"
+        }
+    ]
+};
+
+const CARDIO_DATA = {
+    title: "🚴‍♂️ Кардио (Вело)",
+    desc: "Жиросжигание. Нажми для деталей.",
+    routine: [
+        {
+            name: "Велотренажер",
+            reps: "35-40 минут",
+            sets: 1,
+            note: "Средний темп. Можно смотреть сериал. Пульс 120-130.",
+            rest: "Без отдыха"
+        }
+    ]
+};
+
+// --- БАЗА ЗНАНИЙ (ИНФО) ---
 const EXERCISE_DB = [
-    {
-        name: "Тяга гантели одной рукой (с упором)",
-        tags: ["Спина", "Осанка", "Безопасно"],
-        desc: "Упражнение №1 для сидячей работы. Делаем с опорой о диван/стул, чтобы снять нагрузку с поясницы.",
-        steps: [
-            "1. Поза 'Тренога': Встань левым коленом и левой рукой на диван. Спина ровная как стол, взгляд вниз.",
-            "2. Правая нога на полу. Гантель в правой руке висит вниз.",
-            "3. Представь, что заводишь бензопилу: тяни локоть вверх и НАЗАД (к карману джинс).",
-            "4. Локоть должен скользить вдоль ребер, не отводи его в сторону.",
-            "5. В верхней точке прожми лопатку к центру спины. Плавно опусти.",
-            "Сделай нужное кол-во раз, потом поменяй сторону."
-        ],
-        warning: "Не тяни гантель к груди бицепсом! Тяни локтем к поясу."
-    },
-    {
-        name: "Отжимания (Медленные)",
-        tags: ["Грудь", "Руки"],
-        desc: "Классика. Главное — контроль тела.",
-        steps: [
-            "Упор лежа. Ладони чуть шире плеч. Тело — прямая струна.",
-            "Напряги пресс и ягодицы, чтобы поясница не провисала.",
-            "Медленно (2-3 сек) опускайся вниз.",
-            "Мощно (1 сек) выжми себя вверх.",
-            "Тяжело? Делай с колен, но держи спину ровно."
-        ],
-        warning: "Если болит поясница — значит, ты провисаешь. Напряги пресс!"
-    },
-    {
-        name: "Жим гантелей лежа на полу",
-        tags: ["Грудь", "Плечи"],
-        desc: "Безопаснее для плеч, чем на скамье. Качает объем груди.",
-        steps: [
-            "Ляг на пол спиной, ноги согни в коленях.",
-            "Локти упри в пол под углом 45 градусов к телу (не 90!).",
-            "Выжми гантели вверх, сводя их вместе над грудью.",
-            "Медленно опусти локти на пол."
-        ]
-    },
-    {
-        name: "Махи гантелями в стороны",
-        tags: ["Плечи (Ширина)"],
-        desc: "Делает плечи визуально шире. Вес не важен, важна техника.",
-        steps: [
-            "Стоя, гантели в опущенных руках.",
-            "Подними руки через стороны ровно до уровня плеч (не выше).",
-            "Локти чуть согнуты, кисти развернуты так, будто выливаешь воду из кувшина (мизинец выше большого пальца).",
-            "Плавно опусти, но не бросай."
-        ]
-    },
-    {
-        name: "Разгибание на трицепс",
-        tags: ["Руки (Трицепс)"],
-        desc: "Убирает дряблость с задней поверхности руки.",
-        steps: [
-            "Возьми одну гантель двумя руками, подними над головой.",
-            "Прижми локти ближе к ушам.",
-            "Опускай гантель за голову, сгибая руки ТОЛЬКО в локтях.",
-            "Плечи не двигаются, работают только предплечья."
-        ]
-    },
-    {
-        name: "Лодочка",
-        tags: ["Поясница"],
-        desc: "Укрепляет низ спины, чтобы она не болела от компа.",
-        steps: [
-            "Ляг на живот на коврик, руки вытяни вперед.",
-            "Одновременно оторви от пола руки и прямые ноги.",
-            "Держись на животе 1-2 секунды.",
-            "Плавно опустись."
-        ]
-    },
-    {
-        name: "Приседания",
-        tags: ["Ноги", "Тестостерон"],
-        desc: "Базовое упражнение. Разгоняет метаболизм.",
-        steps: [
-            "Ноги на ширине плеч, носки чуть врозь.",
-            "Отводи таз назад, будто садишься на невидимый стул.",
-            "Спина прямая, пятки приклеены к полу.",
-            "Садись до параллели бедра с полом."
-        ]
-    },
-    {
-        name: "Велотренажер (Кардио)",
-        tags: ["Жиросжигание"],
-        desc: "Ровный темп для сжигания жира.",
-        steps: [
-            "Сиденье по высоте так, чтобы нога внизу почти выпрямлялась.",
-            "Спину держи ровно, не наваливайся всем весом на руль.",
-            "Крути 35-40 минут в среднем темпе (можно говорить, но сложно петь)."
-        ]
-    }
+    { name: "Тяга гантели (с упором)", tags: ["Спина"], desc: "Упрись рукой и коленом в диван. Спина прямая. Тяни локоть к карману (назад), а не к груди.", steps: ["Встань в треногу", "Спина ровная", "Тяни к бедру"] },
+    { name: "Отжимания", tags: ["Грудь"], desc: "Тело струна. Пресс напряжен.", steps: ["Упор лежа", "Медленно вниз", "Мощно вверх"] },
+    { name: "Жим лежа на полу", tags: ["Грудь"], desc: "Безопасно для плеч.", steps: ["Локти 45 град", "Выжми вверх", "Плавно вниз"] },
+    { name: "Махи в стороны", tags: ["Плечи"], desc: "Для ширины плеч.", steps: ["Локти чуть согнуты", "До параллели с полом", "Мизинец выше большого пальца"] },
+    { name: "Приседания", tags: ["Ноги"], desc: "База.", steps: ["Пятки на полу", "Таз назад", "Колени в стороны"] }
 ];
 
-// --- ПЛАН ТРЕНИРОВОК ---
-const WORKOUT_A = {
-    title: "🔥 Тренировка А (Верх)",
-    desc: "Отжимания, Жим гантелей, Махи, Трицепс. См. 'Инфо' для техники.",
-};
-const WORKOUT_B = {
-    title: "💪 Тренировка Б (База)",
-    desc: "Присед, Тяга гантели (с упором!), Бицепс, Лодочка. См. 'Инфо'.",
-};
-
+// --- ГЕНЕРАТОР ПЛАНА ---
 const BASE_MEAL_PLAN = [
     { time: "09:00", title: "Подъем", desc: "Стакан воды + 5г креатина." },
     { time: "09:30", title: "Завтрак", desc: "Овсянка + 2-3 яйца." },
@@ -122,7 +125,6 @@ const BASE_MEAL_PLAN = [
     { time: "23:30", title: "Отбой", desc: "Сон - лучшее лекарство." }
 ];
 
-// --- ГЕНЕРАЦИЯ ---
 function generateMonthSchedule() {
     const schedule = {};
     let loaderDate = new Date(START_DATE_OBJ);
@@ -132,30 +134,39 @@ function generateMonthSchedule() {
         const dateKey = formatDateISO(loaderDate);
         let dailyTasks = JSON.parse(JSON.stringify(BASE_MEAL_PLAN));
         
-        let activitySlot = { 
-            time: "19:00", 
-            title: "🚴‍♂️ Кардио (Вело)", 
-            desc: "35-40 мин. Средний темп, пульс 120-130." 
-        };
+        let activitySlot;
 
         if (loaderDate < TRAINING_START_OBJ) {
-            activitySlot.title = "Подготовка";
-            activitySlot.desc = "Закупка еды, настрой на режим.";
+            activitySlot = { 
+                time: "19:00", 
+                title: "Подготовка", 
+                desc: "Закупка еды, настрой на режим.",
+                type: 'info'
+            };
         } else {
             const diffTime = loaderDate - TRAINING_START_OBJ;
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
             if (diffDays % 2 === 0) {
+                // Силовая
+                const wData = workoutToggle ? WORKOUT_A_DATA : WORKOUT_B_DATA;
                 activitySlot = { 
                     time: "19:00", 
-                    title: workoutToggle ? WORKOUT_A.title : WORKOUT_B.title, 
-                    desc: workoutToggle ? WORKOUT_A.desc : WORKOUT_B.desc,
-                    isWorkout: true
+                    title: wData.title, 
+                    desc: wData.desc,
+                    isWorkout: true,
+                    workoutData: wData
                 };
                 workoutToggle = !workoutToggle; 
             } else {
-                activitySlot.title = "🚴‍♂️ Активное восстановление";
-                activitySlot.desc = "Велотренажер 30-40 мин.";
+                // Кардио
+                activitySlot = {
+                    time: "19:00",
+                    title: CARDIO_DATA.title,
+                    desc: CARDIO_DATA.desc,
+                    isWorkout: true,
+                    workoutData: CARDIO_DATA
+                };
             }
         }
         dailyTasks.push(activitySlot);
@@ -174,14 +185,15 @@ const REAL_TODAY_ISO = formatDateISO(now);
 
 let appState = {
     viewingDateISO: REAL_TODAY_ISO,
-    tasksDoneMap: JSON.parse(localStorage.getItem('zapFitTasksDone')) || {}
+    tasksDoneMap: JSON.parse(localStorage.getItem('zapFitTasksDone')) || {},
+    currentWorkoutTaskId: null // Чтобы знать, какую задачу отметить выполненной после модалки
 };
 
 // --- INIT ---
 document.addEventListener('DOMContentLoaded', () => {
     ensureDateBoundaries();
     renderUI();
-    renderInfoContent(); // Pre-load info content
+    renderInfoContent();
 });
 
 function renderUI() {
@@ -190,21 +202,17 @@ function renderUI() {
     updateTodayProgressBar(); 
 }
 
-// --- CORE UI FUNCTIONS ---
+// --- CORE UI ---
 function updateHeaderUI() {
     const viewDateObj = new Date(appState.viewingDateISO);
     const dateOptions = { month: 'long', day: 'numeric' };
     let dateText = viewDateObj.toLocaleDateString('ru-RU', dateOptions);
-    
     if (appState.viewingDateISO === REAL_TODAY_ISO) dateText += " (Сегодня)";
-    
     document.getElementById('viewingDateText').textContent = dateText;
     document.getElementById('viewingDayOfWeek').textContent = viewDateObj.toLocaleDateString('ru-RU', { weekday: 'long' });
 
-    const prevBtn = document.getElementById('prevDayBtn');
-    const nextBtn = document.getElementById('nextDayBtn');
-    prevBtn.disabled = viewDateObj.getTime() <= START_DATE_OBJ.getTime();
-    nextBtn.disabled = viewDateObj.getTime() >= END_DATE_OBJ.getTime();
+    document.getElementById('prevDayBtn').disabled = viewDateObj.getTime() <= START_DATE_OBJ.getTime();
+    document.getElementById('nextDayBtn').disabled = viewDateObj.getTime() >= END_DATE_OBJ.getTime();
 }
 
 function renderTasksForViewingDate() {
@@ -223,8 +231,7 @@ function renderTasksForViewingDate() {
     } else {
         tasksContainer.classList.add('read-only');
         statusMessage.className = 'day-status-visible';
-        statusMessage.textContent = (appState.viewingDateISO < REAL_TODAY_ISO) 
-            ? "День прошел." : "День еще не наступил.";
+        statusMessage.textContent = (appState.viewingDateISO < REAL_TODAY_ISO) ? "День прошел." : "День еще не наступил.";
     }
 
     let currentPeriod = '';
@@ -232,7 +239,6 @@ function renderTasksForViewingDate() {
         const taskId = `${appState.viewingDateISO}_${index}`;
         const isDone = appState.tasksDoneMap[taskId];
         
-        // Group Titles
         const hour = parseInt(task.time.split(':')[0]);
         let period = hour < 12 ? "Утро" : (hour < 18 ? "День" : "Вечер");
         if (period !== currentPeriod) {
@@ -244,7 +250,17 @@ function renderTasksForViewingDate() {
 
         const taskCard = document.createElement('div');
         taskCard.className = `glass-card task-card ${isDone ? 'completed' : ''}`;
-        if (isViewingToday) taskCard.onclick = () => toggleTaskStatus(taskId, taskCard);
+        if (task.isWorkout) taskCard.classList.add('is-workout');
+
+        if (isViewingToday) {
+            if (task.isWorkout) {
+                // Если это тренировка - открываем модалку
+                taskCard.onclick = () => openWorkoutModal(task.workoutData, taskId);
+            } else {
+                // Обычная задача - просто тоглим
+                taskCard.onclick = () => toggleTaskStatus(taskId, taskCard);
+            }
+        }
 
         taskCard.innerHTML = `
             <div class="task-time">${task.time}</div>
@@ -257,6 +273,63 @@ function renderTasksForViewingDate() {
         tasksContainer.appendChild(taskCard);
     });
 }
+
+// --- WORKOUT LOGIC ---
+function openWorkoutModal(workoutData, taskId) {
+    appState.currentWorkoutTaskId = taskId; // Запоминаем ID задачи
+    const modal = document.getElementById('modalWorkout');
+    const title = document.getElementById('workoutModalTitle');
+    const content = document.getElementById('workoutContent');
+
+    title.textContent = workoutData.title;
+    content.innerHTML = '';
+
+    // Генерируем список упражнений
+    workoutData.routine.forEach((ex, index) => {
+        const item = document.createElement('div');
+        item.className = 'workout-item';
+        
+        // Создаем кнопки для подходов
+        let setsHtml = '';
+        for(let i=1; i<=ex.sets; i++) {
+            setsHtml += `<button class="set-btn" onclick="this.classList.toggle('done')">${i}</button>`;
+        }
+
+        item.innerHTML = `
+            <div class="workout-name">${ex.name}</div>
+            <div class="workout-meta">
+                <span><i style="color:var(--primary)">•</i> ${ex.reps}</span>
+                <span><i style="color:var(--primary)">•</i> Отдых: ${ex.rest}</span>
+            </div>
+            <div style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin-bottom:10px;">${ex.note}</div>
+            <div class="workout-sets">
+                ${setsHtml}
+            </div>
+        `;
+        content.appendChild(item);
+    });
+
+    openModal('modalWorkout');
+}
+
+function finishCurrentWorkout() {
+    if (appState.currentWorkoutTaskId) {
+        // Отмечаем задачу в списке как выполненную
+        if (!appState.tasksDoneMap[appState.currentWorkoutTaskId]) {
+            appState.tasksDoneMap[appState.currentWorkoutTaskId] = true;
+            localStorage.setItem('zapFitTasksDone', JSON.stringify(appState.tasksDoneMap));
+            
+            // Запускаем конфетти
+            triggerConfetti();
+        }
+        
+        // Обновляем UI
+        renderTasksForViewingDate();
+        updateTodayProgressBar();
+    }
+    closeModal('modalWorkout');
+}
+
 
 function toggleTaskStatus(taskId, cardElement) {
     if (appState.viewingDateISO !== REAL_TODAY_ISO) return;
@@ -295,34 +368,28 @@ function updateTodayProgressBar() {
 // --- INFO & MODALS ---
 function renderInfoContent() {
     const container = document.getElementById('infoContent');
-    container.innerHTML = ''; // Clear previous if any
+    container.innerHTML = ''; 
     EXERCISE_DB.forEach(ex => {
         const card = document.createElement('div');
         card.className = 'info-card';
-        let warningHtml = ex.warning ? `<div class="info-warning"><span class="material-icons-round" style="font-size:16px">warning</span>${ex.warning}</div>` : '';
         let stepsHtml = ex.steps.map(s => `• ${s}`).join('<br>');
-        
         card.innerHTML = `
             <h4>${ex.name}</h4>
             <div>${ex.tags.map(t => `<span class="info-tag">${t}</span>`).join(' ')}</div>
             <div class="info-text"><i>${ex.desc}</i></div>
             <div class="info-text" style="margin-top:8px">${stepsHtml}</div>
-            ${warningHtml}
         `;
         container.appendChild(card);
     });
 }
 
 function openStats() {
-    // Calculate Stats
-    let totalTasks = 0, totalDone = 0, workoutsDone = 0;
-    const weeklyData = [0,0,0,0,0,0,0]; // Last 7 days counts
-    
+    let totalDone = 0, workoutsDone = 0;
     Object.keys(appState.tasksDoneMap).forEach(key => {
         totalDone++;
         const [date, idx] = key.split('_');
         const task = FULL_SCHEDULE[date] ? FULL_SCHEDULE[date][idx] : null;
-        if(task && (task.isWorkout || task.title.includes('Кардио'))) workoutsDone++;
+        if(task && task.isWorkout) workoutsDone++;
     });
 
     document.getElementById('statTotalDone').textContent = totalDone;
@@ -335,28 +402,20 @@ function openStats() {
         const d = new Date(now); d.setDate(d.getDate() - i);
         const dKey = formatDateISO(d);
         const dayTasks = FULL_SCHEDULE[dKey] || [];
-        
         let dDone = 0;
         dayTasks.forEach((_, idx) => { if(appState.tasksDoneMap[`${dKey}_${idx}`]) dDone++; });
+        const height = dayTasks.length ? (dDone / dayTasks.length * 100) : 0;
         
         const barWrap = document.createElement('div');
         barWrap.className = 'chart-bar-wrap';
-        
-        const height = dayTasks.length ? (dDone / dayTasks.length * 100) : 0;
-        
-        barWrap.innerHTML = `
-            <div class="chart-bar ${height === 100 ? 'active' : ''}" style="height:${height}%"></div>
-            <span class="chart-label">${d.getDate()}</span>
-        `;
+        barWrap.innerHTML = `<div class="chart-bar ${height === 100 ? 'active' : ''}" style="height:${height}%"></div><span class="chart-label">${d.getDate()}</span>`;
         chartContainer.appendChild(barWrap);
     }
-
     openModal('modalStats');
 }
 
 function openModal(id) {
-    const m = document.getElementById(id);
-    m.classList.remove('hidden');
+    document.getElementById(id).classList.remove('hidden');
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     if(id === 'modalInfo') document.querySelectorAll('.nav-btn')[1].classList.add('active');
     if(id === 'modalStats') document.querySelectorAll('.nav-btn')[2].classList.add('active');
@@ -389,4 +448,41 @@ function formatDateISO(dateObj) {
     const offset = dateObj.getTimezoneOffset();
     dateObj = new Date(dateObj.getTime() - (offset*60*1000));
     return dateObj.toISOString().split('T')[0];
+}
+
+function triggerConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const particles = [];
+    const colors = ['#0a84ff', '#30d158', '#bf5af2', '#ffd60a'];
+    
+    for (let i = 0; i < 100; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            size: Math.random() * 10 + 5,
+            speed: Math.random() * 5 + 2,
+            angle: Math.random() * 360
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let active = false;
+        particles.forEach(p => {
+            p.y += p.speed; p.angle += 2;
+            ctx.fillStyle = p.color;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.angle * Math.PI / 180);
+            ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+            ctx.restore();
+            if (p.y < canvas.height) active = true;
+        });
+        if (active) requestAnimationFrame(draw); else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    draw();
 }
