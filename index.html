@@ -19,20 +19,14 @@
     <div class="app-container">
         <header class="glass-panel header-nav">
             <button class="nav-arrow" id="prevDayBtn" onclick="changeViewingDay(-1)">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <span class="material-icons-round">chevron_left</span>
             </button>
-            
             <div class="date-display">
                 <span id="viewingDateText">Загрузка...</span>
                 <span id="viewingDayOfWeek" style="font-size: 0.8rem; opacity: 0.7;"></span>
             </div>
-
             <button class="nav-arrow" id="nextDayBtn" onclick="changeViewingDay(1)">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <span class="material-icons-round">chevron_right</span>
             </button>
         </header>
 
@@ -55,14 +49,75 @@
         </section>
 
         <main id="mainContent">
-            <div id="dayStatusMessage" class="day-status-hidden">Вы просматриваете другой день. Изменения недоступны.</div>
+            <div id="dayStatusMessage" class="day-status-hidden"></div>
             <div id="tasksList" class="tasks-container"></div>
         </main>
-
+        
+        <div style="height: 80px;"></div>
     </div>
 
-    <canvas id="confetti-canvas"></canvas>
+    <div id="modalInfo" class="modal-overlay hidden">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2>Техника упражнений</h2>
+                <button class="close-btn" onclick="closeModal('modalInfo')">
+                    <span class="material-icons-round">close</span>
+                </button>
+            </div>
+            <div class="modal-scroll-area" id="infoContent">
+                </div>
+        </div>
+    </div>
 
+    <div id="modalStats" class="modal-overlay hidden">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2>Твой прогресс</h2>
+                <button class="close-btn" onclick="closeModal('modalStats')">
+                    <span class="material-icons-round">close</span>
+                </button>
+            </div>
+            <div class="modal-scroll-area">
+                
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-label">Всего задач</span>
+                        <span class="stat-num" id="statTotalDone">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Тренировок</span>
+                        <span class="stat-num" id="statWorkoutsDone">0</span>
+                    </div>
+                </div>
+
+                <h3 class="stat-subtitle">По неделям</h3>
+                <div id="weeklyChart" class="charts-container">
+                    </div>
+
+                <div class="glass-card tip-card">
+                    <span class="material-icons-round" style="color: var(--accent)">insights</span>
+                    <p>Держи темп! Стабильность важнее весов.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav glass-panel">
+        <button class="nav-btn active" onclick="closeAllModals()">
+            <span class="material-icons-round">list_alt</span>
+            <span>План</span>
+        </button>
+        <button class="nav-btn" onclick="openModal('modalInfo')">
+            <span class="material-icons-round">fitness_center</span>
+            <span>Инфо</span>
+        </button>
+        <button class="nav-btn" onclick="openStats()">
+            <span class="material-icons-round">bar_chart</span>
+            <span>Прогресс</span>
+        </button>
+    </nav>
+
+    <canvas id="confetti-canvas"></canvas>
     <script src="script.js"></script>
 </body>
 </html>
