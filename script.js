@@ -10,8 +10,15 @@ const TRAINING_START_OBJ = new Date(TRAINING_START_STR); TRAINING_START_OBJ.setH
 // --- ДЕТАЛЬНЫЕ ПРОГРАММЫ ТРЕНИРОВОК ---
 const WORKOUT_A_DATA = {
     title: "🔥 Тренировка А (Верх)",
-    desc: "Грудь, Плечи, Трицепс. Нажми, чтобы начать.",
+    desc: "Грудь, Плечи, Трицепс. Жми для старта.",
     routine: [
+        {
+            name: "0. Прими BCAA",
+            reps: "3-5 капсул",
+            sets: 1,
+            note: "Запей водой за 10-15 мин до начала. Это защита мышц.",
+            rest: "Готовность"
+        },
         {
             name: "1. Отжимания (Медленные)",
             reps: "МАКСИМУМ",
@@ -23,28 +30,28 @@ const WORKOUT_A_DATA = {
             name: "2. Жим гантелей лежа на полу",
             reps: "15-20 раз",
             sets: 4,
-            note: "Локти касаются пола и сразу вверх. Не расслабляйся внизу.",
+            note: "Локти касаются пола и сразу вверх.",
             rest: "60 сек"
         },
         {
             name: "3. Махи гантелями в стороны",
             reps: "15-20 раз",
             sets: 4,
-            note: "Локти чуть согнуты. Плечи не задирай к ушам.",
+            note: "Плечи не задирай к ушам. Локти мягкие.",
             rest: "60 сек"
         },
         {
             name: "4. Разгибание на трицепс",
             reps: "15 раз",
             sets: 3,
-            note: "Одна гантель двумя руками из-за головы. Локти прижми.",
+            note: "Одна гантель двумя руками из-за головы.",
             rest: "45 сек"
         },
         {
             name: "5. Планка",
             reps: "30-45 сек",
             sets: 3,
-            note: "Держись до трясучки. Не провисай в поясе!",
+            note: "Держись до трясучки. Пресс камень.",
             rest: "30 сек"
         }
     ]
@@ -52,8 +59,15 @@ const WORKOUT_A_DATA = {
 
 const WORKOUT_B_DATA = {
     title: "💪 Тренировка Б (База)",
-    desc: "Спина, Ноги, Бицепс. Нажми, чтобы начать.",
+    desc: "Спина, Ноги, Бицепс. Жми для старта.",
     routine: [
+        {
+            name: "0. Прими BCAA",
+            reps: "3-5 капсул",
+            sets: 1,
+            note: "Запей водой. Чтобы мышцы не горели.",
+            rest: "Готовность"
+        },
         {
             name: "1. Приседания",
             reps: "20 раз",
@@ -65,28 +79,28 @@ const WORKOUT_B_DATA = {
             name: "2. Тяга гантели (с упором)",
             reps: "15-20 на руку",
             sets: 4,
-            note: "Сделай правой, отдохни 30 сек, сделай левой. Тяни к карману!",
+            note: "Тяни локтем к карману (как бензопилу).",
             rest: "Между руками 30 сек"
         },
         {
             name: "3. Бицепс стоя (Гантели)",
             reps: "15-20 раз",
             sets: 4,
-            note: "Локти прижми к корпусу. Без рывков.",
+            note: "Локти прижми к корпусу. Не раскачивайся.",
             rest: "60 сек"
         },
         {
-            name: "4. Молотки (на предплечья)",
+            name: "4. Молотки",
             reps: "15 раз",
             sets: 3,
             note: "Ладони смотрят друг на друга.",
             rest: "45 сек"
         },
         {
-            name: "5. Лодочка (на полу)",
+            name: "5. Лодочка",
             reps: "15 раз (держать 2 сек)",
             sets: 3,
-            note: "Поднимай руки и ноги одновременно. Пауза наверху.",
+            note: "Супермен на полу. Пауза наверху.",
             rest: "45 сек"
         }
     ]
@@ -94,13 +108,20 @@ const WORKOUT_B_DATA = {
 
 const CARDIO_DATA = {
     title: "🚴‍♂️ Кардио (Вело)",
-    desc: "Жиросжигание. Нажми для деталей.",
+    desc: "Жиросжигание. BCAA перед стартом!",
     routine: [
+        {
+            name: "0. Прими BCAA",
+            reps: "3-5 капсул",
+            sets: 1,
+            note: "Можно выпить и во время кручения педалей.",
+            rest: "-"
+        },
         {
             name: "Велотренажер",
             reps: "35-40 минут",
             sets: 1,
-            note: "Средний темп. Можно смотреть сериал. Пульс 120-130.",
+            note: "Средний темп. Пульс 120-130. Спина ровная.",
             rest: "Без отдыха"
         }
     ]
@@ -239,9 +260,9 @@ const EXERCISE_DB = [
     }
 ];
 
-// --- ГЕНЕРАТОР ПЛАНА ---
+// --- ГЕНЕРАТОР ПЛАНА (ОБНОВЛЕН ДЛЯ СПОРТПИТА) ---
 const BASE_MEAL_PLAN = [
-    { time: "09:00", title: "Подъем", desc: "Стакан воды + 5г креатина." },
+    { time: "09:00", title: "Подъем", desc: "Вода + 5г Креатина." },
     { time: "09:30", title: "Завтрак", desc: "Овсянка + 2-3 яйца." },
     { time: "13:30", title: "Обед", desc: "Гречка/Рис + Курица + Овощи." },
     { time: "17:00", title: "Полдник", desc: "Творог или яблоко." },
@@ -264,7 +285,7 @@ function generateMonthSchedule() {
             activitySlot = { 
                 time: "19:00", 
                 title: "Подготовка", 
-                desc: "Закупка еды, настрой на режим.",
+                desc: "Проверь запасы протеина и BCAA.",
                 type: 'info'
             };
         } else {
@@ -272,22 +293,29 @@ function generateMonthSchedule() {
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
             if (diffDays % 2 === 0) {
-                // Силовая
+                // ДЕНЬ СИЛОВОЙ
                 const wData = workoutToggle ? WORKOUT_A_DATA : WORKOUT_B_DATA;
                 activitySlot = { 
                     time: "19:00", 
                     title: wData.title, 
-                    desc: wData.desc,
+                    desc: "Прими BCAA перед стартом!",
                     isWorkout: true,
                     workoutData: wData
                 };
+                // Добавляем протеин ПОСЛЕ тренировки
+                dailyTasks.push({
+                    time: "20:00",
+                    title: "💪 ПРОТЕИН",
+                    desc: "Выпей коктейль сразу после тренировки (30г)."
+                });
+                
                 workoutToggle = !workoutToggle; 
             } else {
-                // Кардио
+                // ДЕНЬ КАРДИО (ОТДЫХ ОТ ЖЕЛЕЗА)
                 activitySlot = {
                     time: "19:00",
                     title: CARDIO_DATA.title,
-                    desc: CARDIO_DATA.desc,
+                    desc: "Крутим педали + BCAA.",
                     isWorkout: true,
                     workoutData: CARDIO_DATA
                 };
@@ -310,7 +338,7 @@ const REAL_TODAY_ISO = formatDateISO(now);
 let appState = {
     viewingDateISO: REAL_TODAY_ISO,
     tasksDoneMap: JSON.parse(localStorage.getItem('zapFitTasksDone')) || {},
-    currentWorkoutTaskId: null // Чтобы знать, какую задачу отметить выполненной после модалки
+    currentWorkoutTaskId: null
 };
 
 // --- INIT ---
@@ -375,13 +403,14 @@ function renderTasksForViewingDate() {
         const taskCard = document.createElement('div');
         taskCard.className = `glass-card task-card ${isDone ? 'completed' : ''}`;
         if (task.isWorkout) taskCard.classList.add('is-workout');
+        
+        // Подсветка для Протеина (чтобы не пропустить)
+        if (task.title.includes('ПРОТЕИН')) taskCard.style.border = "1px solid rgba(255, 215, 0, 0.3)";
 
         if (isViewingToday) {
             if (task.isWorkout) {
-                // Если это тренировка - открываем модалку
                 taskCard.onclick = () => openWorkoutModal(task.workoutData, taskId);
             } else {
-                // Обычная задача - просто тоглим
                 taskCard.onclick = () => toggleTaskStatus(taskId, taskCard);
             }
         }
@@ -400,7 +429,7 @@ function renderTasksForViewingDate() {
 
 // --- WORKOUT LOGIC ---
 function openWorkoutModal(workoutData, taskId) {
-    appState.currentWorkoutTaskId = taskId; // Запоминаем ID задачи
+    appState.currentWorkoutTaskId = taskId; 
     const modal = document.getElementById('modalWorkout');
     const title = document.getElementById('workoutModalTitle');
     const content = document.getElementById('workoutContent');
@@ -408,12 +437,10 @@ function openWorkoutModal(workoutData, taskId) {
     title.textContent = workoutData.title;
     content.innerHTML = '';
 
-    // Генерируем список упражнений
     workoutData.routine.forEach((ex, index) => {
         const item = document.createElement('div');
         item.className = 'workout-item';
         
-        // Создаем кнопки для подходов
         let setsHtml = '';
         for(let i=1; i<=ex.sets; i++) {
             setsHtml += `<button class="set-btn" onclick="this.classList.toggle('done')">${i}</button>`;
@@ -438,22 +465,16 @@ function openWorkoutModal(workoutData, taskId) {
 
 function finishCurrentWorkout() {
     if (appState.currentWorkoutTaskId) {
-        // Отмечаем задачу в списке как выполненную
         if (!appState.tasksDoneMap[appState.currentWorkoutTaskId]) {
             appState.tasksDoneMap[appState.currentWorkoutTaskId] = true;
             localStorage.setItem('zapFitTasksDone', JSON.stringify(appState.tasksDoneMap));
-            
-            // Запускаем конфетти
             triggerConfetti();
         }
-        
-        // Обновляем UI
         renderTasksForViewingDate();
         updateTodayProgressBar();
     }
     closeModal('modalWorkout');
 }
-
 
 function toggleTaskStatus(taskId, cardElement) {
     if (appState.viewingDateISO !== REAL_TODAY_ISO) return;
