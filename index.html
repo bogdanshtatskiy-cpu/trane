@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ZapFit iOS</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
@@ -17,64 +17,47 @@
     </div>
 
     <div class="app-container">
-        <header class="glass-panel">
+        <header class="glass-panel header-nav">
+            <button class="nav-arrow" id="prevDayBtn" onclick="changeViewingDay(-1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            
             <div class="date-display">
-                <span id="currentDate">21 Января</span>
-                <span id="currentDay">Среда</span>
+                <span id="viewingDateText">Загрузка...</span>
+                <span id="viewingDayOfWeek" style="font-size: 0.8rem; opacity: 0.7;"></span>
             </div>
-            <div class="streak-badge">
-                <span class="material-icons-round">local_fire_department</span>
-                <span id="streakCount">0 дней</span>
-            </div>
+
+            <button class="nav-arrow" id="nextDayBtn" onclick="changeViewingDay(1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
         </header>
 
         <section class="progress-section">
-            <div class="glass-card progress-card">
+            <div class="glass-card progress-card" id="mainProgressCard">
                 <div class="progress-ring-container">
-                    <svg class="progress-ring" width="120" height="120">
-                        <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.1)" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
-                        <circle class="progress-ring__circle" stroke="#00d4ff" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                    <svg class="progress-ring" width="100" height="100">
+                        <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.1)" stroke-width="6" fill="transparent" r="42" cx="50" cy="50"/>
+                        <circle class="progress-ring__circle" id="todayProgressCircle" stroke="#0a84ff" stroke-width="6" fill="transparent" r="42" cx="50" cy="50"/>
                     </svg>
                     <div class="progress-text">
-                        <span id="progressPercent">0%</span>
+                        <span id="todayProgressPercent">0%</span>
                     </div>
                 </div>
                 <div class="progress-info">
-                    <h3>Твой прогресс</h3>
-                    <p id="motivationText">Начни день правильно!</p>
+                    <h3 id="progressTitle">Прогресс сегодня</h3>
+                    <p id="motivationText">Загрузка...</p>
                 </div>
             </div>
         </section>
 
-        <div class="tabs glass-panel">
-            <button class="tab-btn active" onclick="switchTab('today')">Сегодня</button>
-            <button class="tab-btn" onclick="switchTab('stats')">Статистика</button>
-        </div>
-
         <main id="mainContent">
+            <div id="dayStatusMessage" class="day-status-hidden">Вы просматриваете другой день. Изменения недоступны.</div>
             <div id="tasksList" class="tasks-container"></div>
         </main>
-
-        <div id="statsView" class="stats-container hidden">
-            <div class="glass-card">
-                <h3>Статистика месяца</h3>
-                <div class="stat-row">
-                    <span>Выполнено задач:</span>
-                    <span id="totalTasksDone" class="stat-value">0</span>
-                </div>
-                <div class="stat-row">
-                    <span>Тренировок пройдено:</span>
-                    <span id="workoutsDone" class="stat-value">0</span>
-                </div>
-                <div class="stat-chart">
-                    <div class="chart-bar" style="height: 40%"></div>
-                    <div class="chart-bar" style="height: 60%"></div>
-                    <div class="chart-bar active" style="height: 80%"></div>
-                    <div class="chart-bar" style="height: 50%"></div>
-                    <div class="chart-bar" style="height: 70%"></div>
-                </div>
-            </div>
-        </div>
 
     </div>
 
